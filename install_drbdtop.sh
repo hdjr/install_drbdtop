@@ -73,5 +73,6 @@ fi
 # Inform user drbdtop is installed
 if [[ -f /opt/go/bin/drbdtop ]]; then
   echo -e "\e[32mdrbdtop is now installed. You can start it by running the "drbdtop" command.\e[0m"
+  echo -e "\e[33mYou may have have to logout and log back in to reload you PATH.\e[0m"
   exit 1;
 fi
