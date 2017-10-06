@@ -7,6 +7,12 @@
 # Logic: [ Check prereqs (wget, golang & git) and download sources and install binaries and include them in $PATH ]
 # TODO: [ Create OS and Pre-req checks, download sources, place binaries where they need to go, set PATH ]
 
+# Inform user drbdtop is installed
+if [[ -f /opt/go/bin/drbdtop ]]; then
+  echo -e "\e[32mdrbdtop is already installed. You can start it by running the "drbdtop" command.\e[0m"
+  exit 1;
+fi
+
 # OS and wget check
 OS=$(cat /etc/redhat-release | cut -d. -f1 | sed s'/Linux release //')
 
@@ -30,9 +36,14 @@ fi
 
 # Download and setup golang binary
 
-cd /tmp && wget https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz
+if [[ -f /tmp/go1.9.linux-amd64.tar.gz ]]; then
+  echo "golang source already downloaded..."
+  cd /tmp
+else
+  cd /tmp && wget https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz
+fi
 
-tar -C /usr/local/ -xvf go1.9.linux-amd64.tar.gz
+tar -C /usr/local/ -xvf go1.9.linux-amd64.tar.gz && cd
 
 # Install drbdtop
 
