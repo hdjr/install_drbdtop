@@ -3,12 +3,12 @@
 # Organization: Hostdime Inc.
 # Date: [ 10-04-2017 ]
 # Description: [ This script installs drbdtop on CentOS 7 ]
-# Version: 0.2 -- BETA
+# Version: 0.3 -- BETA
 # Logic: [ Check prereqs (wget, golang & git) and download sources and install binaries and include them in $PATH ]
-# TODO: [ Create OS and Pre-req checks, download sources, place binaries where they need to go, set PATH ]
+
 
 # Inform user drbdtop is installed
-if [[ -f /opt/go/bin/drbdtop ]]; then
+if [[ -f /usr/local/go/src/github.com/linbit/drbdtop/drbdtop ]]; then
   echo -e "\e[32mdrbdtop is already installed. You can start it by running the "drbdtop" command.\e[0m"
   exit 1;
 fi
@@ -49,29 +49,35 @@ tar -C /usr/local/ -xvf go1.9.linux-amd64.tar.gz && cd
 
 if [[ -f /usr/local/go/bin/go ]]; then
   /usr/local/go/bin/go get github.com/linbit/drbdtop
+  /usr/local/go/bin/go build github.com/linbit/drbdtop
+  cd go/src/github.com/linbit/drbdtop/
+  make build
+  cd
 else
   echo -e "\e[33mGolang binary not found!!!\e[0m"
   exit 1;
 fi
 
-if [[ -f /root/go/bin/drbdtop ]]; then
-  mv /root/go/ /opt
+if [[ -f /root/go/src/github.com/linbit/drbdtop/drbdtop ]]; then
+  mv /root/go/src/github.com/ /usr/local/go/src/
+  mv /root/drbdtop /tmp/
+  mv /root/go/ /tmp/go_drbd_bin
 else
   echo -e "\e[33mdrbdtop binary not found!!!\e[0m"
   exit 1;
 fi
 
 
-if [[ -d /opt/go/bin/ ]]; then
-  echo "export PATH=$PATH:/opt/go/bin/:/usr/local/go/bin" >> /etc/profile
+if [[ -d /usr/local/go/src/github.com/linbit/drbdtop/ ]]; then
+  echo "export PATH=$PATH:/usr/local/go/bin:/usr/local/go/src/github.com/linbit/drbdtop" >> /etc/profile
   source /etc/profile
 else
-  echo -e "\e[33mdrbdtop binary is missing from /opt"
+  echo -e "\e[33mdrbdtop binary is missing from /usr/local/go/ \e[0m"
   exit 1;
 fi
 
 # Inform user drbdtop is installed
-if [[ -f /opt/go/bin/drbdtop ]]; then
+if [[ -f /usr/local/go/src/github.com/linbit/drbdtop ]]; then
   echo -e "\e[32mdrbdtop is now installed. You can start it by running the "drbdtop" command.\e[0m"
   echo -e "\e[33mYou may have have to logout and log back in to reload you PATH.\e[0m"
   exit 1;
