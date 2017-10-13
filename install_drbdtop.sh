@@ -77,7 +77,7 @@ else
 fi
 
 # Inform user drbdtop is installed
-if [[ -f /usr/local/go/src/github.com/linbit/drbdtop ]]; then
+if [[ -f /usr/local/go/src/github.com/linbit/drbdtop/drbdtop ]]; then
   echo -e "\e[32mdrbdtop is now installed. You can start it by running the "drbdtop" command.\e[0m"
   echo -e "\e[33mYou may have have to logout and log back in to reload you PATH.\e[0m"
   exit 1;
