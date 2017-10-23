@@ -45,6 +45,15 @@ fi
 
 tar -C /usr/local/ -xvf go1.9.linux-amd64.tar.gz && cd
 
+# Add go binary to PATH
+
+if [[ -d /usr/local/go ]]; then
+  echo "export PATH=$PATH:/usr/local/go/bin" >> /etc/profile
+  source /etc/profile
+else
+  echo -e "\e[33mgolang binary missing and cannot be sourced! \e[0m"
+fi
+
 # Install drbdtop
 
 if [[ -f /usr/local/go/bin/go ]]; then
