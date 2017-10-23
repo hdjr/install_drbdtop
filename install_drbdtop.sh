@@ -59,7 +59,7 @@ fi
 if [[ -f /usr/local/go/bin/go ]]; then
   /usr/local/go/bin/go get github.com/linbit/drbdtop
   /usr/local/go/bin/go build github.com/linbit/drbdtop
-  cd go/src/github.com/linbit/drbdtop/
+  cd /root/go/src/github.com/linbit/drbdtop/
   make build
   cd
 else
