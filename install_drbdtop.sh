@@ -40,7 +40,7 @@ if [[ -f /tmp/go1.9.linux-amd64.tar.gz ]]; then
   echo "golang source already downloaded..."
   cd /tmp
 else
-  cd /tmp && wget https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz
+  cd /tmp && wget --no-check-certificate https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz
 fi
 
 tar -C /usr/local/ -xvf go1.9.linux-amd64.tar.gz && cd
